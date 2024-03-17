@@ -106,8 +106,8 @@ jobs:
             path: coverage
             retention-days: 2
 
-    reports-to-s3:
-      name: AWS S3 - Upload Reports
+    reports-to-azure-storage:
+      name: Azure Storage- Upload Reports
       runs-on: ubuntu-latest
       needs: [code-coverage, unit-testing]
       continue-on-error: true
@@ -131,8 +131,14 @@ jobs:
             mv test-results.xml reports-${{ github.sha }}/
             ls -ltr reports-${{ github.sha }}/
 
-        - name: Upload the reports to AWS S3
-          run: echo "Uploading the reports to AWS S3.........."
+        - name: Upload the reports to Azure Storage blob
+          uses: bacongobbler/azure-blob-storage-upload@main
+          with:
+            account_name: ${{ vars.REPORTS_STORAGEACCOUNT }}
+            source_dir: reports-${{ github.sha }}
+            container_name: 'testreports'
+            connection_string: ${{ secrets.STORAGE_SAS }}
+
 
     docker:
       name: containerization
