@@ -174,6 +174,13 @@ jobs:
         K8S-KUBECONFIG: ${{ secrets.KUBECONFIG }}
         MONGO-DB-PASSWORD: ${{ secrets.MONGO_PASSWORD }}
 
+      with:
+        MONGO_URI: ${{ vars.MONGO_URI }}
+        KUBECTL_VERSION: v1.27.9
+        ENVIRONMENT: development
+        K8S_MANIFEST_DIR: kubernetes
+
+
     dev-integration-test:
       name: Dev Integration Testing
 
@@ -198,12 +205,18 @@ jobs:
       needs: [docker]
 
       if: github.ref == 'refs/heads/main'
-      
+
       uses: ./.github/workflows/reusable-deployment-workflow.yml
 
       secrets: 
         K8S-KUBECONFIG: ${{ secrets.KUBECONFIG }}
         MONGO-DB-PASSWORD: ${{ secrets.MONGO_PASSWORD }}
+
+      with:
+        MONGO_URI: ${{ vars.MONGO_URI }}
+        KUBECTL_VERSION: v1.27.9
+        ENVIRONMENT: production
+        K8S_MANIFEST_DIR: kubernetes
 
     prd-integration-test:
       name: Prd Integration Testing
