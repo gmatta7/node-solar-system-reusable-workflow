@@ -26,6 +26,9 @@ on:
         required: true
         type: string
         default: development
+    outputs:
+      APPLICATION_URI:
+        value: ${{ jobs.reusable-deploy.outputs.APP_INGRESS_URL }}
 
 jobs:
   reusable-deploy:
