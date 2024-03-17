@@ -137,7 +137,7 @@ jobs:
             account_name: ${{ vars.REPORTS_STORAGEACCOUNT }}
             source_dir: reports-${{ github.sha }}
             container_name: 'testreports'
-            connection_string: ${{ secrets.STORAGE_SAS }}
+            sas_token: ${{ secrets.STORAGE_SAS }}
 
 
     docker:
