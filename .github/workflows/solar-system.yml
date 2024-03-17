@@ -194,9 +194,16 @@ jobs:
 
     prd-deployment:
       name: Prd deployment
+
       needs: [docker]
+
       if: github.ref == 'refs/heads/main'
+      
       uses: ./.github/workflows/reusable-deployment-workflow.yml
+
+      secrets: 
+        K8S-KUBECONFIG: ${{ secrets.KUBECONFIG }}
+        MONGO-DB-PASSWORD: ${{ secrets.MONGO_PASSWORD }}
 
     prd-integration-test:
       name: Prd Integration Testing
