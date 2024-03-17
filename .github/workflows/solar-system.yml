@@ -166,6 +166,9 @@ jobs:
       needs: [docker]
       if: contains(github.ref, 'feature/')
       uses: ./.github/workflows/reusable-deployment-workflow.yml
+      secrets: 
+        K8S-KUBECONFIG: ${{ secrets.KUBECONFIG }}
+        MONGO-DB-PASSWORD: ${{ secrets.MONGO_PASSWORD }}
 
     dev-integration-test:
       name: Dev Integration Testing
