@@ -230,7 +230,7 @@ jobs:
       steps:
         - name: Test URL response using CURL and JQ
           env:
-            URL: ${{ needs.dev-deployment.outputs.APPLICATION_URI }}
+            URL: ${{ needs.prd-deployment.outputs.APPLICATION_URI }}
           run: |
             echo $URL
             echo "----------------------------------"
